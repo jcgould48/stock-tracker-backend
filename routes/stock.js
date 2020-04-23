@@ -3,6 +3,7 @@ const router = express.Router();
 const Stock = require('../models/Stock')
 
 router.post('/stock', (req, res) => {
+  console.log('backend...', req.body.companyName)
   const newStock = new Stock();
   newStock.companyName = req.body.companyName;
   newStock.symbol= req.body.symbol;
