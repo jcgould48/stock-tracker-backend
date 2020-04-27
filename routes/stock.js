@@ -1,28 +1,15 @@
 const express = require('express');
 const router = express.Router();
-const Stock = require('../models/Stock')
 
-router.post('/stock', (req, res) => {
-  console.log('backend...', req.body.companyName)
-  const newStock = new Stock();
-  newStock.companyName = req.body.companyName;
-  newStock.symbol= req.body.symbol;
-  newStock.save().then((stock) => {
-    return res.json(stock);
-  });
-});
 
-router.get('/stocks', (req, res) => {
-  Stock.find({}).then((stocks) => {
-    // blogs.reverse();
-    return res.json(stocks);
-  });
-});
 
-router.delete('/stock/:id', (req, res) => {
-  Stock.findByIdAndDelete({ _id: req.params.id }).then(
-    res.json({ message: 'deleted' })
-  );
-});
+
+const {addStock,getFavorites, deleteFavorite} = require('./controllers/stockController');
+
+router.post('/stock', addStock);
+
+router.get('/stocks', getFavorites);
+
+router.delete('/stock/:id', deleteFavorite);
 
 module.exports = router;
